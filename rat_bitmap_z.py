@@ -1,6 +1,3 @@
-# Edness   2021-07-15
-
-
 from inc_noesis import *
 import noesis
 import rapi
