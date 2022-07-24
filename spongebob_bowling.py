@@ -31,6 +31,21 @@ def bcLoadModel(data, mdlList):
     if (type == 816):
         getTex1(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
+    if (type == 3360):
+        getTex2(data)
+        print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
+    if (type == 1232):
+        getTex3(data)
+        print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
+    if (type == 1024):
+        getTex(data)
+        print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
+    if (type == 816):
+        getTex3(data)
+        print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
+    if (type == 864):
+        getTex3(data)
+        print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
     if (type != 592):
         if (type == 296):
             bs.seek(0x158)
@@ -116,6 +131,9 @@ def bcLoadModel(data, mdlList):
         mdlList.append(mdl)
         
         return 1
+    else:
+        getTex(data)
+        print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
 def findall(p, s):
     i = s.find(p)
     while i != -1:
@@ -145,4 +163,30 @@ def getTex1(data):
     bs.seek(12,NOESEEK_REL)
     texData = bs.readBytes(texWidth * texHeight * 3)
     data = rapi.imageDecodeRaw(texData, texWidth, texHeight, "R8G8B8")
+    noesis.saveImageRGBA(os.path.splitext(rapi.getInputName())[0],NoeTexture(texName,texWidth,texHeight,data,noesis.NOESISTEX_RGBA32))
+    
+def getTex2(data):
+    bs = NoeBitStream(data)
+    result = [(i+3) for i in findall(b'tmp', data)]
+    print(result)
+    bs.seek(result[0]+197)
+    texWidth = bs.readShort()
+    texHeight = bs.readShort()
+    texName = os.path.splitext(rapi.getInputName())[0]
+    bs.seek(12,NOESEEK_REL)
+    texData = bs.readBytes(texWidth * texHeight * 3)
+    data = rapi.imageDecodeRaw(texData, texWidth, texHeight, "R8G8B8")
+    noesis.saveImageRGBA(os.path.splitext(rapi.getInputName())[0],NoeTexture(texName,texWidth,texHeight,data,noesis.NOESISTEX_RGBA32))
+    
+def getTex3(data):
+    bs = NoeBitStream(data)
+    result = [(i+3) for i in findall(b'tmp', data)]
+    print(result)
+    bs.seek(result[0]+89)
+    texWidth = bs.readShort()
+    texHeight = bs.readShort()
+    bs.seek(13,NOESEEK_REL)
+    texName = os.path.splitext(rapi.getInputName())[0]
+    texData = bs.readBytes(texWidth * texHeight * 4)
+    data = rapi.imageDecodeRaw(texData, texWidth, texHeight, "A8B8G8R8")
     noesis.saveImageRGBA(os.path.splitext(rapi.getInputName())[0],NoeTexture(texName,texWidth,texHeight,data,noesis.NOESISTEX_RGBA32))
