@@ -1,5 +1,4 @@
 # Spongebob Bowling
-# Noesis script by Dave, 2022
 
 
 from inc_noesis import *
@@ -28,25 +27,25 @@ def bcLoadModel(data, mdlList):
     if (type == 592):
         getTex(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type == 816):
+    elif (type == 816):
         getTex1(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type == 3360):
+    elif (type == 3360):
         getTex2(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type == 1232):
+    elif (type == 1232):
         getTex3(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type == 1024):
+    elif (type == 1024):
         getTex(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type == 816):
+    elif (type == 816):
         getTex3(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type == 864):
+    elif (type == 864):
         getTex3(data)
         print("Texture Saved to " + os.path.splitext(rapi.getInputName())[0] + ".png")
-    if (type != 592):
+    elif (type != 592):
         if (type == 296):
             bs.seek(0x158)
         if (type == 212):
