@@ -11,9 +11,29 @@ def registerNoesisTypes():
 
 def noepyCheckType(data):
     return 1   
-
+def decrypt(buf, key):
+    buf = list(buf)
+    size = len(buf)
+    localindex = 0 % 22
+    for i in range(size):
+        buf[i] ^= key[localindex]
+        localindex += 1
+        if(localindex > 21):
+            localindex = 0
+    buf = bytearray(buf)
+    return buf
 def getTex(data,texList):
-    bs = NoeBitStream(data,NOE_LITTLEENDIAN)
+    key = [ord(char) for char in 'FaNtA-500mL_mElOn=SoDa']
+    bstest = NoeBitStream(data,NOE_LITTLEENDIAN)
+    if(bstest.readUShort() != 18767):
+        encrypted = True
+    else: 
+        encrypted = False
+    if (encrypted):
+        bs = NoeBitStream(decrypt(data,key),NOE_LITTLEENDIAN)
+    else:
+        bs = NoeBitStream(data,NOE_LITTLEENDIAN)
+    print("Encrypted: ", encrypted)
     bs.seek(0x03)
     paletteSize = bs.readUByte() #??? idk 
     texWidth = bs.readUShort()
